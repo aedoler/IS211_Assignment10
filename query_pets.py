@@ -10,8 +10,9 @@ import sys
 def dataLookup():
     userInput = None
 
-    while userInput != -1:
-        try:
+    try:
+
+        while userInput != -1:
             userInput = raw_input('Please input a person\'s ID number: ')
             userInput2 = userInput
             con = lite.connect('pets.db')
@@ -41,15 +42,15 @@ def dataLookup():
 
             con.commit()
 
-        except lite.Error, e:
+    except lite.Error, e:
 
-            if con:
-                con.rollback()
+        if con:
+            con.rollback()
 
-                print "Error {}".format(e)
-                dataLookup()
-    else:
-        sys.exit()
+            print "Error {}".format(e)
+            dataLookup()
+        else:
+            sys.exit()
 
 
 if __name__ == '__main__':
